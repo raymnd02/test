@@ -1,0 +1,4 @@
+com\exist\test\TestFunctionFail.class
+com\exist\test\TestFunction.class
+com\exist\test\JunitTestSuite.class
+com\exist\test\TestRunner.class

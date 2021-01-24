@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Function.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">service</a> &gt; <a href="index.source.html" class="el_package">com.exist.service</a> &gt; <span class="el_source">Function.java</span></div><h1>Function.java</h1><pre class="source lang-java linenums">package com.exist.service;
+import java.util.*;
+import java.util.regex.*;
+import com.exist.model.Table;
+<span class="fc" id="L5">public class Function {</span>
+<span class="fc" id="L6">	Scanner sc = new Scanner(System.in);</span>
+	public void print (ArrayList&lt;ArrayList&lt;Table&gt;&gt; tableList) {
+		
+<span class="nc" id="L9">		tableList.stream().forEach(row -&gt; {</span>
+<span class="nc" id="L10">			row.stream().forEach(col -&gt; {</span>
+<span class="nc" id="L11">				System.out.print(col.getKey() + &quot;:&quot; + col.getValue() + &quot;,\t&quot;);</span>
+<span class="nc" id="L12">			});</span>
+<span class="nc" id="L13">			System.out.println();</span>
+<span class="nc" id="L14">		});</span>
+<span class="nc" id="L15">		System.out.println();</span>
+<span class="nc" id="L16">	}</span>
+	public ArrayList&lt;ArrayList&lt;Table&gt;&gt; edit (int row, int column, int keyOrValue,String changeTo, ArrayList&lt;ArrayList&lt;Table&gt;&gt; tableList) {
+		
+<span class="fc bfc" id="L19" title="All 2 branches covered.">		if (keyOrValue == 1) {</span>
+<span class="fc" id="L20">			tableList.get(row).get(column).setKey(changeTo);</span>
+<span class="pc bpc" id="L21" title="1 of 2 branches missed.">		} else if (keyOrValue == 2){</span>
+<span class="fc" id="L22">			tableList.get(row).get(column).setValue(changeTo);</span>
+		}
+<span class="fc" id="L24">		return tableList;</span>
+	}
+	public void search (String stringToSearch, ArrayList&lt;ArrayList&lt;Table&gt;&gt; tableList) {
+<span class="nc" id="L27">		Pattern pattern = Pattern.compile(stringToSearch);</span>
+<span class="nc" id="L28">		boolean foundCheck = false;</span>
+<span class="nc bnc" id="L29" title="All 2 branches missed.">		for (int i = 0; i &lt; tableList.size(); i++) {</span>
+<span class="nc bnc" id="L30" title="All 2 branches missed.">			for (int j = 0 ; j &lt; tableList.get(i).size(); j++) {</span>
+<span class="nc" id="L31">				int countMatch = 0;</span>
+<span class="nc" id="L32">				String matchIn = tableList.get(i).get(j).getKey() + tableList.get(i).get(j).getValue();</span>
+<span class="nc" id="L33">				Matcher matcher = pattern.matcher(matchIn);</span>
+<span class="nc bnc" id="L34" title="All 2 branches missed.">				while( matcher.find() ) { countMatch ++; }</span>
+<span class="nc bnc" id="L35" title="All 2 branches missed.">				if ( countMatch != 0 ) {</span>
+<span class="nc" id="L36">					System.out.print(stringToSearch + &quot; Found in cell(&quot; + i +&quot;,&quot; + j + &quot;): &quot;);</span>
+<span class="nc" id="L37">					System.out.println(countMatch + &quot; occurence&quot;);</span>
+<span class="nc" id="L38">					foundCheck = true;</span>
+				}			
+			}
+		}
+<span class="nc bnc" id="L42" title="All 2 branches missed.">		if (foundCheck == false) {</span>
+<span class="nc" id="L43">			System.out.println(&quot;No Matches found&quot;);</span>
+		}
+<span class="nc" id="L45">		System.out.println(&quot;&quot;);</span>
+<span class="nc" id="L46">	}</span>
+	public ArrayList&lt;ArrayList&lt;Table&gt;&gt; addRow (ArrayList&lt;ArrayList&lt;Table&gt;&gt; tableList) {
+		String key;
+		String value;
+<span class="nc" id="L50">		int rowMaxLength = 0;</span>
+<span class="nc" id="L51">		ArrayList&lt;Table&gt; additionalRow = new ArrayList&lt;&gt; ();</span>
+<span class="nc bnc" id="L52" title="All 2 branches missed.">		for (int i = 0; i &lt; tableList.size(); i++) {</span>
+<span class="nc bnc" id="L53" title="All 2 branches missed.">			if (rowMaxLength &lt; tableList.get(i).size()) {</span>
+<span class="nc" id="L54">				rowMaxLength = tableList.get(i).size();</span>
+			}
+		}
+<span class="nc bnc" id="L57" title="All 2 branches missed.">		for (int i = 0; i &lt; rowMaxLength; i++) {</span>
+<span class="nc" id="L58">			System.out.print(&quot;[&quot; + (tableList.size()) +&quot;][&quot; + i + &quot;]&quot;);</span>
+<span class="nc" id="L59">			System.out.print(&quot;Enter Key: &quot;);</span>
+<span class="nc" id="L60">			key = sc.nextLine();</span>
+<span class="nc" id="L61">			System.out.print(&quot;[&quot; + (tableList.size()) +&quot;][&quot; + i + &quot;]&quot;);</span>
+<span class="nc" id="L62">			System.out.print(&quot;Enter Value: &quot;);</span>
+<span class="nc" id="L63">			value = sc.nextLine();</span>
+<span class="nc" id="L64">			additionalRow.add(new Table(key,value));</span>
+<span class="nc" id="L65">			System.out.print(&quot;[&quot; + (tableList.size()) +&quot;][&quot; + i + &quot;]&quot;);</span>
+<span class="nc" id="L66">			System.out.println(&quot; - &quot; + key + &quot;:&quot; + value);</span>
+		}
+<span class="nc" id="L68">		tableList.add(additionalRow);</span>
+<span class="nc" id="L69">		return tableList;</span>
+	}
+	public ArrayList&lt;ArrayList&lt;Table&gt;&gt; sort (int index, int orderBy, ArrayList&lt;ArrayList&lt;Table&gt;&gt; tableList) {
+		
+<span class="fc" id="L73">		ArrayList&lt;String&gt; listToSort = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L74">		ArrayList&lt;Table&gt; sortedTable = new ArrayList&lt;&gt;();</span>
+		
+<span class="fc" id="L76">		tableList.get(index).stream()</span>
+<span class="fc" id="L77">			.forEach(listForSorting -&gt; {</span>
+<span class="fc" id="L78">				listToSort.add(listForSorting.getKey() + &quot;:&quot; + listForSorting.getValue());</span>
+<span class="fc" id="L79">			});</span>
+		
+
+<span class="fc bfc" id="L82" title="All 2 branches covered.">		if (orderBy == 1) {</span>
+<span class="fc" id="L83">			Collections.sort(listToSort);</span>
+		} else {
+<span class="fc" id="L85">			Collections.sort(listToSort,Collections.reverseOrder());</span>
+		}
+<span class="fc" id="L87">		listToSort.stream().forEach(sortTable -&gt; {</span>
+<span class="fc" id="L88">			String []keyAndValue = sortTable.split(&quot;:&quot;);</span>
+<span class="fc" id="L89">			sortedTable.add(new Table(keyAndValue[0],keyAndValue[1]));</span>
+<span class="fc" id="L90">			});</span>
+<span class="fc" id="L91">			tableList.set(index,sortedTable);</span>
+			
+<span class="fc" id="L93">		return tableList;</span>
+	}
+	public ArrayList&lt;ArrayList&lt;Table&gt;&gt; reset (int row,int column) {
+<span class="fc" id="L96">		Random r = new Random();</span>
+<span class="fc" id="L97">		ArrayList&lt;ArrayList&lt;Table&gt;&gt; tableList = new ArrayList&lt;&gt; ();</span>
+<span class="fc" id="L98">		ArrayList&lt;Table&gt; rowList = new ArrayList&lt;&gt; ();</span>
+<span class="fc" id="L99">		String uppercase=&quot;ABCDEFGHIJKLMNOPQRSTUVWXYZ&quot;;</span>
+<span class="fc" id="L100">		String lowercase=&quot;abcdefghijklmnopqrstuvwxyz&quot;;</span>
+<span class="fc" id="L101">		String specialChar=&quot;@#$_&amp;-+()/*';!?|.~&gt;&lt;[]{}\\=`%&quot;;</span>
+<span class="fc" id="L102">		String numbers=&quot;1234567890&quot;;</span>
+<span class="fc" id="L103">		String characters=uppercase+lowercase+specialChar+numbers;</span>
+<span class="fc bfc" id="L104" title="All 2 branches covered.">		for ( int i = 0 ; i &lt;= row - 1; i++ ) {</span>
+<span class="fc" id="L105">			rowList = new ArrayList&lt;Table&gt; ();</span>
+<span class="fc" id="L106">			String fileRowReset = &quot;&quot;;</span>
+<span class="fc bfc" id="L107" title="All 2 branches covered.">			for ( int j = 0 ; j &lt;= column - 1; j++ ) {</span>
+				
+<span class="fc" id="L109">				String randomKey = &quot;&quot;;</span>
+<span class="fc" id="L110">				String randomValue = &quot;&quot;;</span>
+				
+<span class="fc bfc" id="L112" title="All 2 branches covered.">				for ( int k = 0; k&lt; 3; k++ ) {</span>
+<span class="fc" id="L113">					randomKey += characters.charAt (r.nextInt(characters.length()));</span>
+<span class="fc" id="L114">					randomValue += characters.charAt (r.nextInt(characters.length()));</span>
+<span class="fc" id="L115">				}rowList.add(new Table(randomKey,randomValue));</span>
+			}
+<span class="fc" id="L117">			tableList.add(rowList);</span>
+		}
+<span class="fc" id="L119">		return tableList;</span>
+	}
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

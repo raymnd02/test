@@ -1,0 +1,16 @@
+-------------------------------------------------------------------------------
+Test set: com.exist.test.TestFunctionFail
+-------------------------------------------------------------------------------
+Tests run: 3, Failures: 3, Errors: 0, Skipped: 0, Time elapsed: 0.057 sec <<< FAILURE! - in com.exist.test.TestFunctionFail
+testReset(com.exist.test.TestFunctionFail)  Time elapsed: 0.035 sec  <<< FAILURE!
+java.lang.AssertionError: expected:<4> but was:<2>
+	at com.exist.test.TestFunctionFail.testReset(TestFunctionFail.java:53)
+
+testEdit(com.exist.test.TestFunctionFail)  Time elapsed: 0.004 sec  <<< FAILURE!
+org.junit.ComparisonFailure: expected:<ee[]> but was:<ee[e]>
+	at com.exist.test.TestFunctionFail.testEdit(TestFunctionFail.java:31)
+
+testSort(com.exist.test.TestFunctionFail)  Time elapsed: 0.006 sec  <<< FAILURE!
+org.junit.ComparisonFailure: expected:<aa[]> but was:<aa[a]>
+	at com.exist.test.TestFunctionFail.testSort(TestFunctionFail.java:41)
+
